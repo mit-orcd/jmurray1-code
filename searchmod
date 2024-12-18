@@ -1,5 +1,6 @@
 # search for the module
 # add to .bashrc or .bash_aliases
+# because, well, sometimes module spider isn't working
 function searchmod() {
     if [ -z "$1" ]; then
         echo "Usage: searchmod <search_term>"
