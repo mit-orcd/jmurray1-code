@@ -1,0 +1,19 @@
+# bash function 
+# add to .bashrc or .bash_aliases
+# faster access to ganglia from Mac
+function ganglia() {
+    if [ -z "$1" ]; then
+        echo "Usage: ganglia <username>"
+        return 1
+    fi
+    local username=$1
+    echo "Attempting to establish SSH connection..."
+    echo "Opening Google Chrome to http://localhost:8080/ganglia/"
+    open -a "Google Chrome" "http://localhost:8080/ganglia/"
+    ssh "$username"@eofe10.mit.edu -L 8080:10.1.2.104:80
+    if [ $? -eq 0 ]; then
+        echo "SSH connection established."
+    else
+        echo "Failed to establish SSH connection."
+    fi
+}
