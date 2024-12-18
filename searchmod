@@ -1,0 +1,10 @@
+# search for the module
+# add to .bashrc or .bash_aliases
+function searchmod() {
+    if [ -z "$1" ]; then
+        echo "Usage: searchmod <search_term>"
+        return 1
+    fi
+    local search_term=$1
+    module avail 2>&1 | grep  -i "$search_term"
+}
