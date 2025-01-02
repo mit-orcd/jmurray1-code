@@ -1,11 +1,17 @@
 # search for the module
 # add to .bashrc or .bash_aliases
 # because, well, sometimes module spider isn't working
+#
 function searchmod() {
+    # Check if a search term is provided
     if [ -z "$1" ]; then
         echo "Usage: searchmod <search_term>"
         return 1
     fi
+
+    # Assign the first argument to the search_term variable
     local search_term=$1
-    module avail 2>&1 | grep  -i "$search_term"
+
+    # Search for the term in the list of available modules, filter out lines starting and ending with '-', and split the line into individual words
+    module avail 2>&1 | grep -i "$search_term" | grep -v '^-.*-$' | tr ' ' '\n' | grep -i "$search_term"
 }
