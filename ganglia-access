@@ -1,6 +1,10 @@
+# Author: jmurray1@mit.edu
+# Date: 2024-12
+# Title: ganglia-access
+# Purpose: simplify access to ganglia monitoring on engaging
 # bash function
 # add to .bashrc or .bash_aliases
-# faster access to ganglia from Mac
+# faster access to ganglia from Mac or Linux (windows untested)
 function ganglia() {
     if [ -z "$1" ]; then
         echo "Usage: ganglia <username>"
