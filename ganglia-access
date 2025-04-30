@@ -1,15 +1,41 @@
-# bash function 
+# Author: jmurray1@mit.edu
+# Date: 2024-12
+# Title: ganglia-access
+# Purpose: simplify access to ganglia monitoring on engaging
+# bash function
 # add to .bashrc or .bash_aliases
-# faster access to ganglia from Mac
+# faster access to ganglia from Mac or Linux (windows untested)
 function ganglia() {
     if [ -z "$1" ]; then
         echo "Usage: ganglia <username>"
         return 1
     fi
     local username=$1
+    local url="http://localhost:8080/ganglia/"
+
     echo "Attempting to establish SSH connection..."
-    echo "Opening Google Chrome to http://localhost:8080/ganglia/"
-    open -a "Google Chrome" "http://localhost:8080/ganglia/"
+
+    # Check the operating system and open the appropriate browser
+    case "$(uname)" in
+        Linux)
+            echo "Opening Firefox to $url"
+            xdg-open "$url" &
+            ;;
+        Darwin)
+            echo "Opening default browser to $url"
+            open "$url"
+            ;;
+        CYGWIN*|MINGW32*|MSYS*|MINGW*)
+            echo "Opening Google Chrome to $url"
+            start chrome "$url"
+            ;;
+        *)
+            echo "Unsupported OS"
+            return 1
+            ;;
+    esac
+
+    # Establish SSH tunnel
     ssh "$username"@eofe10.mit.edu -L 8080:10.1.2.104:80
     if [ $? -eq 0 ]; then
         echo "SSH connection established."
