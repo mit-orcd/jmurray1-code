@@ -19,6 +19,22 @@ def main():
     # Get username and password from user input
     username = input('Enter your username: ')
     password = getpass.getpass(prompt='Enter your password: ')
+    hostname = 'orcd-login001.mit.edu'
+
+    # Get the list of SSH keys in the user's .ssh directory
+    ssh_dir = os.path.expanduser(f'/Users/{username}/.ssh')
+    ssh_keys = [f for f in os.listdir(ssh_dir) if f.endswith('.pub')]
+
+    if not ssh_keys:
+        print("No SSH keys found in the .ssh directory.")
+        return
+
+    print("Available SSH keys:")
+    for i, key in enumerate(ssh_keys):
+        print(f"{i + 1}: {key}")
+
+    key_choice = int(input("Select the SSH key to use (enter the number): ")) - 1
+    key_filename = os.path.join(ssh_dir, ssh_keys[key_choice].replace('.pub', ''))
 
     # Create an SSH client
     ssh = paramiko.SSHClient()
@@ -30,9 +46,20 @@ def main():
     ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy())
 
     try:
-        # Connect to the server
-        ssh.connect(hostname='orcd-login001.mit.edu', port=22, username=username, password=password)
+        # Try connecting with the selected SSH key
+        ssh.connect(hostname=hostname, username=username, key_filename=key_filename)
+        print(f"Successfully connected to {hostname} as {username} using SSH key.")
+    except (paramiko.AuthenticationException, paramiko.SSHException) as e:
+        print(f"SSH key authentication failed: {e}")
+        try:
+            # If SSH key fails, connect using password
+            ssh.connect(hostname=hostname, port=22, username=username, password=password)
+            print(f"Successfully connected to {hostname} as {username} using password.")
+        except Exception as e:
+            print(f"An error occurred: {e}")
+            return
 
+    try:
         # Open an SFTP session
         sftp = ssh.open_sftp()
 
@@ -89,4 +116,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-
