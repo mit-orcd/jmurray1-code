@@ -1,0 +1,4 @@
+[submodule "jupyter-connect"]
+    path = jupyter-connect
+    url = https://github.com/mit-orcd/jmurray1-code/jupyter-connect
+
