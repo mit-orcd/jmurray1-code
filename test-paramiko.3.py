@@ -6,10 +6,10 @@ import time
 
 # Define the submission script as a string
 submission_script = """#!/bin/bash
-#SBATCH --job-name=test_job
-#SBATCH --output=output.txt
-#SBATCH --error=error.txt
-#SBATCH --time=01:00:00
+#SBATCH --job-name=$USER-jupyter
+#SBATCH --output=combined.txt
+#SBATCH --error=combined.txt
+#SBATCH --time=03:00:00
 #SBATCH --partition=standard
 
 echo "Running job on $(hostname)"
