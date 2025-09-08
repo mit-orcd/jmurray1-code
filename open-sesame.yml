@@ -1,0 +1,14 @@
+name: jupyter_env
+channels:
+  - conda-forge
+dependencies:
+  - python=3.9
+  - jupyterlab
+  - paramiko
+  - numpy
+  - pandas
+  - matplotlib
+  - scipy
+  - scikit-learn
+  - ipykernel
+  - notebook
