@@ -2,7 +2,7 @@
 # Author: jmurray1@mit.edu
 # Purpose: get percentage of jobs preempted in the mit_preemptable partition
 # Date: 2025-10-22
-# 
+# For: https://mit.service-now.com/nav_to.do?uri=x_mits2_sloanfcs_case.do?sys_id=54930016476cf25023644be2a36d43fa
 
 # Usage: ./preempt_stats.sh YYYY-MM-DD YYYY-MM-DD
 # Example: ./preempt_stats.sh 2025-04-01 2025-04-30
