@@ -18,7 +18,8 @@ TOTAL=$(sacct -S $START_DATE -E $END_DATE --partition=$PARTITION --allusers --fo
 
 # Calculate percentage
 #PERCENT=$(echo "scale=2; $PREEMPTED / $TOTAL * 100" | bc)
-PERCENT=$(awk "BEGIN {printf \"%.2f\", $PREEMPTED / $TOTAL * 100}")
+#PERCENT=$(awk "BEGIN {printf \"%.2f\", $PREEMPTED / $TOTAL * 100}")
+PERCENT=$(awk -v p="$PREEMPTED" -v t="$TOTAL" 'BEGIN {printf "%.2f", (t > 0 ? p / t * 100 : 0)}')
 
 # Output results
 echo "From $START_DATE to $END_DATE on partition '$PARTITION':"
