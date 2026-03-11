@@ -8,7 +8,7 @@ from typing import List, Tuple, Set
 PARTITIONS = [
     "sched_mit_hill",
     "newnodes",
-    # add more if needed...
+    # add more as needed...
 ]
 
 START = "now-90days"   # or "2026-02-01", etc.
