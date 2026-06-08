@@ -33,7 +33,7 @@
 # memory scan clean.
 ###############################################################################
 
-set -euo pipefail
+set -uo pipefail
 
 PASS=0
 FAIL=0
@@ -43,10 +43,10 @@ check() {
     shift
     if "$@" > /dev/null 2>&1; then
         echo "[PASS] $label"
-        ((PASS++))
+        ((PASS++)) || true
     else
         echo "[FAIL] $label"
-        ((FAIL++))
+        ((FAIL++)) || true
     fi
 }
 
