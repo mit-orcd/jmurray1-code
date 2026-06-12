@@ -46,7 +46,7 @@ echo " Job ID: ${SLURM_JOB_ID:-N/A}"
 echo "==============================================="
 echo ""
 
-WORKDIR=$(mktemp -d)
+WORKDIR=$(mktemp -d "${HOME}/orcd/scratch/.hpc-test-04.XXXXXX")
 trap 'rm -rf "$WORKDIR"' EXIT
 
 cat > "${WORKDIR}/pingpong.c" << 'CEOF'
