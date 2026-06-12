@@ -67,7 +67,7 @@ for num in "${TESTS[@]}"; do
     SCRIPT=$(ls ${num}-*.sbatch 2>/dev/null | head -1)
     if [ -z "$SCRIPT" ]; then
         echo "  [SKIP] No script found for test ${num}"
-        ((SKIPPED++))
+        SKIPPED=$((SKIPPED + 1))
         continue
     fi
 
@@ -80,10 +80,10 @@ for num in "${TESTS[@]}"; do
     if [ -n "$JOBID" ]; then
         echo "  [SUBMITTED] ${SCRIPT} -> Job ${JOBID}"
         JOBIDS+=("$JOBID")
-        ((SUBMITTED++))
+        SUBMITTED=$((SUBMITTED + 1))
     else
         echo "  [ERROR] Failed to submit ${SCRIPT}"
-        ((SKIPPED++))
+        SKIPPED=$((SKIPPED + 1))
     fi
 done
 
